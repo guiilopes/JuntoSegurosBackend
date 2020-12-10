@@ -57,7 +57,7 @@ namespace JuntoSegurosBackendTeste.Api
                     };
                 });
 
-            IdentityModelEventSource.ShowPII = true; 
+            IdentityModelEventSource.ShowPII = true;
 
             services.AddMvc(option =>
             {
@@ -74,7 +74,19 @@ namespace JuntoSegurosBackendTeste.Api
             //services.AddScoped<ICustomerRepository, CustomerRepository>();
 
             services.AddAutoMapper();
+
             services.AddCors();
+
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1",
+                    new Microsoft.OpenApi.Models.OpenApiInfo
+                    {
+                        Title = "Swagger",
+                        Description = "Swagger Junto Seguros",
+                        Version = "v1"
+                    });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -85,6 +97,16 @@ namespace JuntoSegurosBackendTeste.Api
             app.UseHttpsRedirection();
 
             app.UseAuthentication();
+
+            app.UseStaticFiles();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "JuntoSeguros API V1");
+                options.RoutePrefix = string.Empty;
+            });
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 

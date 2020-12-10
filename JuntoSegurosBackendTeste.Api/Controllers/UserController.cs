@@ -34,6 +34,37 @@ namespace JuntoSegurosBackendTeste.Api.Controllers
             _mapper = mapper;
         }
 
+        private async Task<string> GenerateJwtToken(User user)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.UserName)
+            };
+
+            var roles = await _userManager.GetRolesAsync(user);
+
+            foreach (var role in roles)
+                claims.Add(new Claim(ClaimTypes.Role, role));
+
+            var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
+
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.Now.AddDays(1),
+                SigningCredentials = credentials
+            };
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            return tokenHandler.WriteToken(token);
+        }
+
         [HttpGet("GetUser")]
         public async Task<IActionResult> GetUser()
         {
@@ -59,8 +90,7 @@ namespace JuntoSegurosBackendTeste.Api.Controllers
             }
             catch (System.Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError,
-                                       $"Falha ao registrar usuário. Ex: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Falha ao registrar usuário. Ex: {ex.Message}");
             }
         }
 
@@ -92,40 +122,46 @@ namespace JuntoSegurosBackendTeste.Api.Controllers
             }
             catch (System.Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError,
-                                       $"Falha ao realizar login. Ex: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Falha ao realizar login. Ex: {ex.Message}");
             }
         }
 
-        private async Task<string> GenerateJwtToken(User user)
+        [HttpPut("ChangePassword")]
+        public async Task<IActionResult> ChangePasswordAsync(UserLoginDto userLoginDto, string newPassword)
         {
-            var claims = new List<Claim>
+            try
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.UserName)
-            };
+                var user = await _userManager.FindByNameAsync(userLoginDto.UserName);
 
-            var roles = await _userManager.GetRolesAsync(user);
+                if (userLoginDto.Password == newPassword)
+                    return StatusCode(StatusCodes.Status403Forbidden, $"Por favor não utilize uma senha antiga.");
 
-            foreach (var role in roles)
-                claims.Add(new Claim(ClaimTypes.Role, role));
+                var result = await _userManager.ChangePasswordAsync(user, userLoginDto.Password, newPassword);
 
-            var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
+                if (result.Succeeded)
+                {
+                    var appUser = await _userManager.Users
+                         .FirstOrDefaultAsync(u => u.NormalizedUserName == userLoginDto.UserName.ToUpper());
 
-            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+                    var userReturn = _mapper.Map<UserLoginDto>(appUser);
 
-            var tokenDescriptor = new SecurityTokenDescriptor
+                    return Ok(new
+                    {
+                        token = GenerateJwtToken(appUser).Result,
+                        user = userReturn
+                    });
+                }
+
+                foreach (var erro in result.Errors)
+                    if (erro.Code == "PasswordMismatch")
+                        return StatusCode(StatusCodes.Status401Unauthorized, $"Senha antiga não confere.");
+
+                return Unauthorized();
+            }
+            catch (System.Exception ex)
             {
-                Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(1),
-                SigningCredentials = credentials
-            };
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-
-            return tokenHandler.WriteToken(token);
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Falha ao realizar login. Ex: {ex.Message}");
+            }
         }
     }
 }

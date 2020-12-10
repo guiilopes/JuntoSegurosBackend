@@ -1,31 +1,24 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using JuntoSegurosBackendTeste.Domain.Entities;
-using JuntoSegurosBackendTeste.Domain.Enums;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace JuntoSegurosBackendTeste.Test
 {
     [TestClass]
-    [TestCategory("Domain - Customers Test")]
+    [TestCategory("Domain - User Test")]
     public class CustomersTests
     {
-        //[TestMethod]
-        //public void Deve_retornar_igual_quando_customer_preenchido()
-        //{
 
-        //    Customer customer = new Customer(1, "Teste S/A", CompanySize.Grande);
+        [TestMethod]
+        public void Deve_retornar_igual_quando_customer_preenchido()
+        {
+            var user = new User
+            {
+                Email = "guilherme@teste.com",
+                UserName = "guilherme",
+            };
 
-        //    Assert.AreEqual(1, customer.Id);
-        //    Assert.AreEqual("Teste S/A", customer.Name);
-        //    Assert.AreEqual(CompanySize.Grande, customer.CompanySize);
-        //}
-
-        //[TestMethod]
-        //public void Deve_retornar_nulo_quando_customer_nao_preenchido()
-        //{
-
-        //    Customer customer = new Customer(1, "Teste S/A", CompanySize.Grande);
-
-        //    Assert.IsNotNull(customer);
-        //}
+            Assert.AreEqual("guilherme@teste.com", user.Email);
+            Assert.AreEqual("guilherme", user.UserName);
+        }
     }
 }
