@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29324.140
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JuntoSegurosBackendTeste.Api", "JuntoSegurosBackendTeste.Api\JuntoSegurosBackendTeste.Api.csproj", "{AC9FB4E9-6B0E-41E9-BA99-E628E6EE536E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JuntoSegurosBackendTeste.Test", "JuntoSegurosBackendTeste.Test\JuntoSegurosBackendTeste.Test.csproj", "{1EE6416E-049D-4B4D-A516-9B974ECFD4DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JuntoSegurosBackendTeste.Infra", "JuntoSegurosBackendTeste.Infra\JuntoSegurosBackendTeste.Infra.csproj", "{41197F2E-E7F7-4CB0-9F85-08620FCB2C9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JuntoSegurosBackendTeste.Domain", "JuntoSegurosBackendTeste.Domain\JuntoSegurosBackendTeste.Domain.csproj", "{5473B9FE-2821-4052-9D10-8315D1978FA1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JuntoSegurosBackendTeste.AppService", "JuntoSegurosBackendTeste.AppService\JuntoSegurosBackendTeste.AppService.csproj", "{94DAE7E3-EF81-4ED8-9D73-1421AC64B097}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC9FB4E9-6B0E-41E9-BA99-E628E6EE536E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC9FB4E9-6B0E-41E9-BA99-E628E6EE536E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC9FB4E9-6B0E-41E9-BA99-E628E6EE536E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC9FB4E9-6B0E-41E9-BA99-E628E6EE536E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EE6416E-049D-4B4D-A516-9B974ECFD4DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EE6416E-049D-4B4D-A516-9B974ECFD4DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EE6416E-049D-4B4D-A516-9B974ECFD4DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EE6416E-049D-4B4D-A516-9B974ECFD4DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41197F2E-E7F7-4CB0-9F85-08620FCB2C9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41197F2E-E7F7-4CB0-9F85-08620FCB2C9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41197F2E-E7F7-4CB0-9F85-08620FCB2C9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41197F2E-E7F7-4CB0-9F85-08620FCB2C9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5473B9FE-2821-4052-9D10-8315D1978FA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5473B9FE-2821-4052-9D10-8315D1978FA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5473B9FE-2821-4052-9D10-8315D1978FA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5473B9FE-2821-4052-9D10-8315D1978FA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94DAE7E3-EF81-4ED8-9D73-1421AC64B097}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94DAE7E3-EF81-4ED8-9D73-1421AC64B097}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94DAE7E3-EF81-4ED8-9D73-1421AC64B097}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94DAE7E3-EF81-4ED8-9D73-1421AC64B097}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8F8CBD8C-E49B-447D-943B-82FD0CD5BEA1}
+	EndGlobalSection
+EndGlobal
